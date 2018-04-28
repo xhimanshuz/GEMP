@@ -1,0 +1,11 @@
+#!/usr/bin/python3
+from mainWindow import MainWindow
+from setting import Setting
+import gi
+from gi.repository import Gtk
+
+def main():
+    win = MainWindow()
+    # win.show_all()
+
+main()
