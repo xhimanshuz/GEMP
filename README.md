@@ -1,5 +1,5 @@
 # GEMP - GNU - Nginx - MySQL - PHP
-Free and Open-source LEMP stack service management applicaton.
+**Free** and **Open-source** LEMP stack service management applicaton.
   Main objective in development of this project is to make New Linux user feel more comfortable Web stack services without having Linux command knowledge.
   New Linux user don't have to panic to configure Web Stack Services manually. With single click you can setup and configure web services.
   Now New Linux user don’t have to search and learn on google ‘how to install LEMP stack in Linux’.
