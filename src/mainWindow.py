@@ -9,16 +9,16 @@ class MainWindow(Gtk.Window):
     def __init__(self):
         Gtk.Window.__init__(self)
         self.nginx = 'nginx'
-        self.php = 'php7.1-fpm'
+        self.php = 'php7.2-fpm'
         self.mysql = 'mysql'
-        # self.setting = Setting()
         self.jsonSetting = Setting().fetchSetting()
 
         self.importObject()
         self.initial(self.jsonSetting["nginxPortEntry"])
         self.statusL()
-        self.headerLogoStatus()
-        self.switchButton.set_active(self.processControl(self.nginx, 'status'))
+        # self.headerLogoStatus()
+        self.switchStatusText()
+        self.switchButton.set_active((self.statusAllProcess()))
         self.switchButton.connect("notify::active", self.switchToggle)
         self.settingButton.connect("clicked",self.onSettingClicked)
         self.mainWin = self.builder.get_object('mainWin')
@@ -28,12 +28,12 @@ class MainWindow(Gtk.Window):
         
         Gtk.main()
 
-    def headerLogoStatus(self):
-        if self.statusAllProcess():
-            pass
-            # self.logo.set_from_file('gui/colorHeader.png')
-        # else:
-            # self.logo.set_from_file('gui/blackHeader.png')
+    def switchStatusText(self):
+        if(self.statusAllProcess()):
+            self.switchStatus.set_text("Server Started")
+            self.markup(self.switchStatus, '<b>Server Started</b>')
+        else:
+            self.switchStatus.set_text("Server Stopped")
             
 
     def startStop(self):
@@ -96,22 +96,28 @@ class MainWindow(Gtk.Window):
         self.settingButton = self.builder.get_object("settingButton")
         self.nginxdot = self.builder.get_object("nginxdot")
         self.mysqldot = self.builder.get_object("mysqldot")
-        self.mysqldot.set_no_show_all(True)
+        # self.mysqldot.set_no_show_all(True)
         self.phpdot = self.builder.get_object("phpdot")
 
         # self.warningBox = self.builder.get_object('warningBox')
         # self.warningBox.set_visible(False)
+
+    def installServices(self, service):
+        # if (service == 'php7.1-fpm'):
+        #     status = subprocess.getstatus
+        pass
+
+
     def statusAllProcess(self):
-        if not((self.processControl(self.nginx,'status')) and (self.processControl(self.php, 'status')) and (self.processControl(self.mysql, 'status'))):
-            self.logo.set_from_file("gui/blackHeader.png")
+        if ((self.processControl(self.nginx,'status')) and (self.processControl(self.php, 'status')) and (self.processControl(self.mysql, 'status'))):
+            self.logo.set_from_file('gui/colorHeader.png')
             return True
         else:
-            self.logo.set_from_file('gui/colorHeader.png')
+            self.logo.set_from_file("gui/blackHeader.png")
             return False
 
 
     def switchToggle(self, switch, gparam):
-        print(switch, gparam)
         if switch.get_active():
             if self.startAllProcess():
                 self.logo.set_from_file('gui/colorHeader.png')
@@ -124,7 +130,9 @@ class MainWindow(Gtk.Window):
                     self.logo.set_from_file("gui/blackHeader.png")
             else:
                 print("Error while stopping Process")
+        self.switchStatusText()
         self.statusL()
+        # self.switchButton.set_active(not(self.statusAllProcess()))
 
     def startAllProcess(self):
         # if not((subprocess.call(['sudo','service','nginx','start']) and subprocess.call(['sudo','service','php7.0-fpm','start']) and subprocess.call(['sudo','service','mysql','start'])))
@@ -168,9 +176,24 @@ class MainWindow(Gtk.Window):
 
 
     def processControl(self, service, signal):
-        status = not (subprocess.getstatusoutput('sudo service {} {}'.format(service, signal))[0])
-        print("ProcessControl", status, service)
-        return status
+        status = (subprocess.getstatusoutput('sudo systemctl {} {}'.format(signal, service))[0])
+        if (status == 1):
+            print('Process {} is Masked\nUnmasking service...!'.format(service))
+            if(self.processControl(service,'unmask')):
+                print("unable to Unmask...!")
+            else:
+                print("Unmasking {} Sucessufull".format(service))
+        elif (status == 0):
+            print("ProcessControl", status, service)
+            return True
+        elif (status in [4,5]):
+            if (self.installServices(service)):
+                print("{} install Sucessfully".format(service))
+            else:
+                print("Error in installing...")
+        else:
+            print("Process: {} {}".format(service, status))
+            return False
 
     def quit(self, signal, s):
         print("stopWithGemp", self.jsonSetting["stopWithGemp"])
