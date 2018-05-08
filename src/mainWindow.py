@@ -1,4 +1,15 @@
 #!/usr/bin/python3
+
+#----------GEMP MAINTAINER------------#
+#Himanshu Rastogi<hi.himanshu14@gmail.com>
+#
+#----------CONTRIBUTERS---------------#
+#Himanshu Rastogi<hi.himanshu14@gmail.com>
+#
+#
+#######################################
+
+
 import gi
 gi.require_version('Gtk','3.0')
 from gi.repository import Gtk
@@ -11,14 +22,15 @@ class MainWindow(Gtk.Window):
         self.nginx = 'nginx'
         self.php = 'php7.2-fpm'
         self.mysql = 'mysql'
-        self.jsonSetting = Setting().fetchSetting()
+        self.jsonSetting = Setting().fetchSetting()         #Fetch setting from json file
 
-        self.importObject()
-        self.initial(self.jsonSetting["nginxPortEntry"])
-        self.statusL()
-        # self.headerLogoStatus()
-        self.switchStatusText()
+        self.importObject()                                 #Call function to import all object from Glade file
+        self.initial(self.jsonSetting["nginxPortEntry"])    #Setting up UI according to Configuration file
+        self.statusL()                                      #Setting Indicator Status
+        #Setting Switch Status
+        self.switchStatusText()                             
         self.switchButton.set_active((self.statusAllProcess()))
+        #Connecting Switch Signal to switchToggle Function
         self.switchButton.connect("notify::active", self.switchToggle)
         self.settingButton.connect("clicked",self.onSettingClicked)
         self.mainWin = self.builder.get_object('mainWin')
@@ -35,7 +47,6 @@ class MainWindow(Gtk.Window):
         else:
             self.switchStatus.set_text("Server Stopped")
             
-
     def startStop(self):
         if self.jsonSetting["startWithGemp"]:
             self.startAllProcess()
@@ -49,7 +60,6 @@ class MainWindow(Gtk.Window):
         print("back")
         self.backFromSetting()
 
-        # print("Back")
     def backFromSetting(self):
         self.mainWin.set_opacity(1)
         self.mainWin.connect('delete-event',self.quit)
@@ -98,10 +108,7 @@ class MainWindow(Gtk.Window):
         self.mysqldot = self.builder.get_object("mysqldot")
         # self.mysqldot.set_no_show_all(True)
         self.phpdot = self.builder.get_object("phpdot")
-
-        # self.warningBox = self.builder.get_object('warningBox')
-        # self.warningBox.set_visible(False)
-
+        
     def installServices(self, service):
         # if (service == 'php7.1-fpm'):
         #     status = subprocess.getstatus
@@ -115,8 +122,7 @@ class MainWindow(Gtk.Window):
         else:
             self.logo.set_from_file("gui/blackHeader.png")
             return False
-
-
+        
     def switchToggle(self, switch, gparam):
         if switch.get_active():
             if self.startAllProcess():
@@ -174,7 +180,6 @@ class MainWindow(Gtk.Window):
     def markup(self, object, text):
         object.set_markup(text)
 
-
     def processControl(self, service, signal):
         status = (subprocess.getstatusoutput('sudo systemctl {} {}'.format(signal, service))[0])
         if (status == 1):
@@ -204,4 +209,3 @@ class MainWindow(Gtk.Window):
         print("Quiting")
         self.mainWin.close()
         Gtk.main_quit()
-        
