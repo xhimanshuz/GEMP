@@ -1,15 +1,3 @@
-#!/usr/bin/python3
-
-#----------GEMP MAINTAINER------------#
-#Himanshu Rastogi<hi.himanshu14@gmail.com>
-#
-#----------CONTRIBUTERS---------------#
-#Himanshu Rastogi<hi.himanshu14@gmail.com>
-#
-#
-#######################################
-
-
 import gi
 gi.require_version('Gtk','3.0')
 from gi.repository import Gtk
@@ -20,7 +8,7 @@ class MainWindow(Gtk.Window):
     def __init__(self):
         Gtk.Window.__init__(self)
         self.nginx = 'nginx'
-        self.php = 'php7.2-fpm'
+        self.php = self.getPhpService()
         self.mysql = 'mysql'
         self.jsonSetting = Setting().fetchSetting()         #Fetch setting from json file
 
@@ -57,7 +45,6 @@ class MainWindow(Gtk.Window):
         self.mainWin.set_opacity(0.5)
         self.setting = Setting()
         self.setting.main()
-        print("back")
         self.backFromSetting()
 
     def backFromSetting(self):
@@ -114,6 +101,8 @@ class MainWindow(Gtk.Window):
         #     status = subprocess.getstatus
         pass
 
+    def getPhpService(self):
+        return subprocess.getstatusoutput('service --status-all | grep php[5-9].[0-9]-[f]*')[1].replace("[ + ]", "").strip()
 
     def statusAllProcess(self):
         if ((self.processControl(self.nginx,'status')) and (self.processControl(self.php, 'status')) and (self.processControl(self.mysql, 'status'))):
@@ -122,7 +111,8 @@ class MainWindow(Gtk.Window):
         else:
             self.logo.set_from_file("gui/blackHeader.png")
             return False
-        
+
+
     def switchToggle(self, switch, gparam):
         if switch.get_active():
             if self.startAllProcess():
@@ -180,6 +170,7 @@ class MainWindow(Gtk.Window):
     def markup(self, object, text):
         object.set_markup(text)
 
+
     def processControl(self, service, signal):
         status = (subprocess.getstatusoutput('sudo systemctl {} {}'.format(signal, service))[0])
         if (status == 1):
@@ -209,3 +200,4 @@ class MainWindow(Gtk.Window):
         print("Quiting")
         self.mainWin.close()
         Gtk.main_quit()
+        
