@@ -3,9 +3,11 @@ gi.require_version('Gtk','3.0')
 from gi.repository import Gtk
 import json
 from os import path
+import subprocess
 
 class Setting(Gtk.Window):
     def __init__(self):
+        self.phpLocation = self.getPhpLocaion()
         self.importObject()
         self.builder.connect_signals(self.signals())
         self.setValues(self.settingJson(self.defaultSetting()))
@@ -18,6 +20,7 @@ class Setting(Gtk.Window):
         self.builder.add_from_file("gui/setting.glade")
         self.settingWindow = self.builder.get_object("settingWindow")
 
+        self.defaultButton = self.builder.get_object("defaultButton")
         self.settingCancel = self.builder.get_object("settingCancel")
         self.settingOk = self.builder.get_object("settingOk")
 
@@ -81,7 +84,6 @@ class Setting(Gtk.Window):
     
     def ddclientListInit(self, List):
         for list in List:
-            print(list)
             self.listStore.append([list])
             
 
@@ -94,7 +96,8 @@ class Setting(Gtk.Window):
             "mysqlDefaultLogButtonClicked": self.mysqlDefaultLogButtonClicked,
             "ngFileSetDefaultClicked": self.ngFileSetDefaultClicked,
             "ddclientAddClicked": self.ddclientAddClicked,
-            "ddclientRemoveClicked": self.ddclientRemoveClicked
+            "ddclientRemoveClicked": self.ddclientRemoveClicked,
+            "defaultButtonClicked": self.defaultButtonClicked
         }
         return signals
 
@@ -187,7 +190,6 @@ class Setting(Gtk.Window):
             }
 
     def writeJson(self, string):
-        print(string)
         with open("setting.json", "w") as file:
             s = json.dumps(string)
             file.write(s)
@@ -232,11 +234,14 @@ class Setting(Gtk.Window):
         with open('/etc/mysql/mysql.conf.d/mysqld.cnf','w') as f:
             f.write(s)
 
+    def getPhpLocaion(self):
+        return subprocess.getstatusoutput('service --status-all | grep php[5-9].[0-9]-[f]*')[1].replace("[ + ]", "").strip().replace("php","").replace("-fpm","")
+
     def phpConfig(self, setting):
         with open('php.ini.sample','r') as f:
             s = f.read().replace("{maxFileSize}", str(setting["phpMaxUploadLimit"]))
             s = s.replace("{maxFileNo}", str(setting["phpMaxNo"]))
-        with open("/etc/php/7.1/fpm/php.ini","w") as f:
+        with open("/etc/php/{}/fpm/php.ini".format(self.phpLocation),"w") as f:
             f.write(s)
 
     def ddclient(self, setting):
@@ -252,7 +257,7 @@ login={}
 password={}
 client={}
         """.format(setting["ddProtocolEntry"], setting["ddServiceEntry"], setting["ddlogin"], setting["ddPassword"], ','.join(setting["ddclientList"]))
-        with open("config/ddclient.conf","w") as f:
+        with open("/etc/ddclient.conf","w") as f:
             f.write(string)
             
     def ddclientRemoveClicked(self, widget):
@@ -272,8 +277,10 @@ client={}
         self.ddclient(self.fetchSetting())
 
         self.quit(True)
-        print("OK")
 
+    #Set All setting values to default
+    def defaultButtonClicked(self, widget):
+        self.setValues(self.defaultSetting())
 
     def setDefaultPortButtonPressed(self, widget):
         self.nginxPortEntry.set_text("80")
@@ -281,7 +288,6 @@ client={}
 
     def mysqlDefaultLogButtonClicked(self, widget):
         self.mysqlLogEntry.set_text(self.defaultSetting()["mysqlLogEntry"])
-        print(self.defaultSetting()["mysqlLogEntry"])
     
     def ngFileSetDefaultClicked(self, widget):
         self.ngIndexEntry.set_text(self.defaultSetting()["ngIndexEntry"])
