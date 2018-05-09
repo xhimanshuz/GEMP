@@ -1,15 +1,3 @@
-#!/usr/bin/python3
-
-#----------GEMP MAINTAINER------------#
-#Himanshu Rastogi<hi.himanshu14@gmail.com>
-#
-#----------CONTRIBUTERS---------------#
-#Himanshu Rastogi<hi.himanshu14@gmail.com>
-#
-#
-#######################################
-
-
 import gi
 gi.require_version('Gtk','3.0')
 from gi.repository import Gtk

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg58"
+   inkscape:version="0.92.3 (3ce5693, 2018-03-11)"
+   sodipodi:docname="LOGO.svg">
+  <defs
+     id="defs52">
+    <filter
+       style="color-interpolation-filters:sRGB"
+       inkscape:label="Drop Shadow"
+       id="filter1685-7-9">
+      <feFlood
+         flood-opacity="0.498039"
+         flood-color="rgb(0,0,0)"
+         result="flood"
+         id="feFlood1675-4-3" />
+      <feComposite
+         in="flood"
+         in2="SourceGraphic"
+         operator="in"
+         result="composite1"
+         id="feComposite1677-9-5" />
+      <feGaussianBlur
+         in="composite1"
+         stdDeviation="6.8"
+         result="blur"
+         id="feGaussianBlur1679-9-7" />
+      <feOffset
+         dx="14.7"
+         dy="13.1"
+         result="offset"
+         id="feOffset1681-4-0" />
+      <feComposite
+         in="SourceGraphic"
+         in2="offset"
+         operator="over"
+         result="composite2"
+         id="feComposite1683-5-8" />
+    </filter>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.24748737"
+     inkscape:cx="295.6151"
+     inkscape:cy="819.62681"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1366"
+     inkscape:window-height="710"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata55">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot1173"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:87.09519196px;line-height:1.25;font-family:Lot;-inkscape-font-specification:Lot;letter-spacing:0px;word-spacing:0px;display:inline;fill:#00e676;fill-opacity:1;stroke:#ffffff;stroke-width:14;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;filter:url(#filter1685-7-9)"
+       transform="matrix(1.055321,0,0,1.1150432,-115.78231,-270.30026)"><flowRegion
+         id="flowRegion1175"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Lot;-inkscape-font-specification:Lot;fill:#00e676;fill-opacity:1;stroke:#ffffff;stroke-width:14;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"><rect
+           id="rect1177"
+           width="556.59406"
+           height="259.60919"
+           x="133.34013"
+           y="213.3824"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Lot;-inkscape-font-specification:Lot;fill:#00e676;fill-opacity:1;stroke:#ffffff;stroke-width:14;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" /></flowRegion><flowPara
+         id="flowPara1179"
+         style="font-size:192px;fill:#00e676;fill-opacity:1;stroke-width:14;stroke-miterlimit:4;stroke-dasharray:none">G</flowPara></flowRoot>    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:30.03689194px;line-height:1.25;font-family:'DejaVu Sans';-inkscape-font-specification:'DejaVu Sans Bold';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.80455959"
+       x="58.816971"
+       y="120.06231"
+       id="text104"><tspan
+         sodipodi:role="line"
+         id="tspan102"
+         x="58.816971"
+         y="120.06231"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'DejaVu Sans';-inkscape-font-specification:'DejaVu Sans Bold';fill:#ffffff;fill-opacity:1;stroke-width:0.80455959">GEMP</tspan></text>
+  </g>
+</svg>
