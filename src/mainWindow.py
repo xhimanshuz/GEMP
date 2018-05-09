@@ -178,6 +178,7 @@ class MainWindow(Gtk.Window):
             if(self.processControl(service,'unmask')):
                 print("unable to Unmask...!")
             else:
+                self.processControl(service, 'restart')
                 print("Unmasking {} Sucessufull".format(service))
         elif (status == 0):
             print("ProcessControl", status, service)
