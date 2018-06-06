@@ -65,7 +65,7 @@ class MainWindow(Gtk.Window):
             self.linkButton.set_uri("http://localhost:{}".format(jsonSetting))
         else:
             self.linkButton.set_uri('#')
-        self.switchButton.set_active(self.statusAllProcess)
+        self.switchButton.set_active(self.statusAllProcess())
 
     def osStatusCheck(self):
         return subprocess.getstatusoutput('cat /etc/*-release')[1].split('\n')[3].split('=')[1].replace('"',"")
@@ -96,13 +96,15 @@ class MainWindow(Gtk.Window):
         # self.mysqldot.set_no_show_all(True)
         self.phpdot = self.builder.get_object("phpdot")
         
-    def installServices(self, service):
-        # if (service == 'php7.1-fpm'):
-        #     status = subprocess.getstatus
-        pass
+    # def installServices(self, service):
+    #       pass
 
     def getPhpService(self):
-        return subprocess.getstatusoutput('service --status-all | grep php[5-9].[0-9]-[f]*')[1].replace("[ + ]", "").strip()
+        php = subprocess.getstatusoutput('service --status-all | grep php[5-9].[0-9]-[f]*')[1].replace("[ + ]", "").strip()
+        if(php is ''):
+            return "php"
+        else:
+            return php
 
     def statusAllProcess(self):
         if ((self.processControl(self.nginx,'status')) and (self.processControl(self.php, 'status')) and (self.processControl(self.mysql, 'status'))):
@@ -111,7 +113,6 @@ class MainWindow(Gtk.Window):
         else:
             self.logo.set_from_file("gui/blackHeader.png")
             return False
-
 
     def switchToggle(self, switch, gparam):
         if switch.get_active():
@@ -128,10 +129,9 @@ class MainWindow(Gtk.Window):
                 print("Error while stopping Process")
         self.switchStatusText()
         self.statusL()
-        # self.switchButton.set_active(not(self.statusAllProcess()))
+        self.switchButton.set_active(self.statusAllProcess())
 
     def startAllProcess(self):
-        # if not((subprocess.call(['sudo','service','nginx','start']) and subprocess.call(['sudo','service','php7.0-fpm','start']) and subprocess.call(['sudo','service','mysql','start'])))
         if (self.processControl(self.nginx,'start') and self.processControl(self.php, 'start') and self.processControl(self.mysql, 'start')):
             return True
         else:
@@ -184,13 +184,15 @@ class MainWindow(Gtk.Window):
             print("ProcessControl", status, service)
             return True
         elif (status in [4,5]):
-            if (self.installServices(service)):
-                print("{} install Sucessfully".format(service))
-            else:
-                print("Error in installing...")
-        else:
-            print("Process: {} {}".format(service, status))
             return False
+        #   UPCOMMING FEATURE - AUTO INSTALL/REMOVE SERVICES
+        #     if (self.installServices(service)):        
+        #         print("{} install Sucessfully".format(service))
+        #     else:
+        #         print("Error in installing...")
+        # else:
+        #     print("Process: {} {}".format(service, status))
+        #     return False
 
     def quit(self, signal, s):
         print("stopWithGemp", self.jsonSetting["stopWithGemp"])
@@ -201,4 +203,3 @@ class MainWindow(Gtk.Window):
         print("Quiting")
         self.mainWin.close()
         Gtk.main_quit()
-        
