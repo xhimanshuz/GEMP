@@ -2,6 +2,7 @@ import gi
 gi.require_version('Gtk','3.0')
 from gi.repository import Gtk
 from setting import Setting
+from serviceIR import ServiceIR
 import subprocess
 
 class MainWindow(Gtk.Window):
@@ -95,9 +96,19 @@ class MainWindow(Gtk.Window):
         self.mysqldot = self.builder.get_object("mysqldot")
         # self.mysqldot.set_no_show_all(True)
         self.phpdot = self.builder.get_object("phpdot")
+        self.irButton = self.builder.get_object('irButton')
+        self.irButton.connect('clicked',self.irButtonClicked)
         
     # def installServices(self, service):
     #       pass
+<<<<<<< HEAD
+
+    def irButtonClicked(self,widget):
+        print('clicked')
+        self.sIR = ServiceIR()
+        self.sIR.run()
+=======
+>>>>>>> 770a8ae29f4db04398c72b2effac935775aa730d
 
     def getPhpService(self):
         php = subprocess.getstatusoutput('service --status-all | grep php[5-9].[0-9]-[f]*')[1].replace("[ + ]", "").strip()
@@ -202,4 +213,8 @@ class MainWindow(Gtk.Window):
             print("Error: stopWithQuit")
         print("Quiting")
         self.mainWin.close()
+<<<<<<< HEAD
         Gtk.main_quit()
+=======
+        Gtk.main_quit()
+>>>>>>> 770a8ae29f4db04398c72b2effac935775aa730d
