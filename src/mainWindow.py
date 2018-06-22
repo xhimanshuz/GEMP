@@ -101,14 +101,11 @@ class MainWindow(Gtk.Window):
         
     # def installServices(self, service):
     #       pass
-<<<<<<< HEAD
 
     def irButtonClicked(self,widget):
         print('clicked')
         self.sIR = ServiceIR()
         self.sIR.run()
-=======
->>>>>>> 770a8ae29f4db04398c72b2effac935775aa730d
 
     def getPhpService(self):
         php = subprocess.getstatusoutput('service --status-all | grep php[5-9].[0-9]-[f]*')[1].replace("[ + ]", "").strip()
@@ -196,14 +193,6 @@ class MainWindow(Gtk.Window):
             return True
         elif (status in [4,5]):
             return False
-        #   UPCOMMING FEATURE - AUTO INSTALL/REMOVE SERVICES
-        #     if (self.installServices(service)):        
-        #         print("{} install Sucessfully".format(service))
-        #     else:
-        #         print("Error in installing...")
-        # else:
-        #     print("Process: {} {}".format(service, status))
-        #     return False
 
     def quit(self, signal, s):
         print("stopWithGemp", self.jsonSetting["stopWithGemp"])
@@ -213,8 +202,4 @@ class MainWindow(Gtk.Window):
             print("Error: stopWithQuit")
         print("Quiting")
         self.mainWin.close()
-<<<<<<< HEAD
         Gtk.main_quit()
-=======
-        Gtk.main_quit()
->>>>>>> 770a8ae29f4db04398c72b2effac935775aa730d
