@@ -5,6 +5,10 @@ Web Services Stack Application
 cd src && chmod +x main.py
 
 sudo ./main.py
+# Screenshots
+![Alt text](Data/gempImg1.png?raw=true "Service on")
+![Alt text](Data/gempImg2.png?raw=true "Service on")
+
 
 # FEATURES
 
