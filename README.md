@@ -1,5 +1,5 @@
 # GEMP - GNU - Nginx - MySQL - PHP
-Web Services Stack Application
+LEMP stack services controller and configuration application.
 
 # Instruction
 cd src && chmod +x main.py
