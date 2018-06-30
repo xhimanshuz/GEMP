@@ -3,9 +3,9 @@ LEMP stack services controller and configuration application.
 
 # Instruction
 ```shell
-cd src && chmod +x main.py
+cd src && chmod +x main
 
-sudo ./main.py
+sudo ./main
 ```
 # Screenshots
 ![Alt text](Data/gempImg1.png?raw=true "Service on")
