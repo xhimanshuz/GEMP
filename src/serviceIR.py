@@ -41,7 +41,7 @@ class ServiceIR(Gtk.Window):
             self.nginxTick.set_from_file('gui/ok.png')
 
     def phpInstallButtonClicked(self, widget):
-        flag = subprocess.getstatusoutput('sudo apt install php[5-9].[0-9]-fpm -y')
+        flag = subprocess.getstatusoutput('sudo apt install php[5-9].[0-9]-fpm php[5-9].[0-9]-mysql  -y')
         if flag[0]:
             print("Error in Installing PHP")
             self.phpTick.set_from_file('gui/cancel.png')
